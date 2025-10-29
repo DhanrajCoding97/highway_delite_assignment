@@ -1,4 +1,4 @@
-import mongoose, {Document, Schema} from 'mongoose';
+import mongoose, { Document, Schema } from 'mongoose';
 
 export interface ISlot {
   date: Date;
@@ -24,6 +24,7 @@ export interface IExperience extends Document {
   slots: ISlot[];
   createdAt: Date;
   updatedAt: Date;
+  currency: string;
 }
 
 const SlotSchema = new Schema<ISlot>({
@@ -35,19 +36,23 @@ const SlotSchema = new Schema<ISlot>({
   price: { type: Number, required: true }
 });
 
-const ExperienceSchema = new Schema<IExperience>({
-  title: { type: String, required: true },
-  description: { type: String, required: true },
-  location: { type: String, required: true },
-  duration: { type: String, required: true },
-  category: { type: String, required: true },
-  image: { type: String, required: true },
-  rating: { type: Number, default: 0 },
-  reviewCount: { type: Number, default: 0 },
-  highlights: [{ type: String }],
-  included: [{ type: String }],
-  about: { type: String },
-  slots: [SlotSchema]
-}, { timestamps: true });
+const ExperienceSchema = new Schema<IExperience>(
+  {
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    location: { type: String, required: true },
+    duration: { type: String, required: true },
+    category: { type: String, required: true },
+    image: { type: String, required: true },
+    rating: { type: Number, default: 0 },
+    reviewCount: { type: Number, default: 0 },
+    highlights: [{ type: String }],
+    included: [{ type: String }],
+    about: { type: String },
+    slots: [SlotSchema],
+    currency: { type: String, default: 'INR' }
+  },
+  { timestamps: true }
+);
 
 export default mongoose.model<IExperience>('Experience', ExperienceSchema);

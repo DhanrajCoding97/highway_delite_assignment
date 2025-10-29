@@ -3,10 +3,14 @@ import {
   createBooking,
   getBookingByReference
 } from '../controllers/bookingController';
+import {
+  ValidateBooking,
+  validateBookingReference
+} from '../middleware/validation';
 
 const router = express.Router();
 
-router.post('/', createBooking);
-router.get('/:reference', getBookingByReference);
+router.post('/', ValidateBooking, createBooking);
+router.get('/:reference', validateBookingReference, getBookingByReference);
 
 export default router;

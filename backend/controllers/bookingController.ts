@@ -2,8 +2,10 @@ import { Request, Response } from 'express';
 import Booking from '../models/Bookings';
 import Experience from '../models/Experience';
 import PromoCode from '../models/PromoCode';
-
+import mongoose from 'mongoose';
 export const createBooking = async (req: Request, res: Response) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
   try {
     const {
       experienceId,
@@ -25,6 +27,7 @@ export const createBooking = async (req: Request, res: Response) => {
       !customerEmail ||
       !numberOfPeople
     ) {
+      await session.abortTransaction();
       return res.status(400).json({
         success: false,
         message: 'Missing required fields'
@@ -40,9 +43,19 @@ export const createBooking = async (req: Request, res: Response) => {
       });
     }
 
-    // Find experience
+    //validate no of people
+    if (numberOfPeople < 1 || numberOfPeople > 20) {
+      await session.abortTransaction();
+      return res.status(400).json({
+        success: false,
+        message: 'Number of people must be between 1 and 20'
+      });
+    }
+
+    // Find experience with session lock
     const experience = await Experience.findById(experienceId);
     if (!experience) {
+      await session.abortTransaction();
       return res.status(404).json({
         success: false,
         message: 'Experience not found'
@@ -67,9 +80,22 @@ export const createBooking = async (req: Request, res: Response) => {
     }
 
     const slot = experience.slots[slotIndex];
+    // Check if slot date is in the past
+    const slotDateObj = new Date(slot.date);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (slotDateObj < today) {
+      await session.abortTransaction();
+      return res.status(400).json({
+        success: false,
+        message: 'Cannot book slots in the past'
+      });
+    }
 
     // Check availability
     if (slot.availableSpots < numberOfPeople) {
+      await session.abortTransaction();
       return res.status(400).json({
         success: false,
         message: `Only ${slot.availableSpots} spots available`
@@ -83,21 +109,42 @@ export const createBooking = async (req: Request, res: Response) => {
     const taxes = Math.round(subtotal * 0.18);
 
     let discount = 0;
+    let appliedPromoCode = '';
 
     // Apply promo code if provided
     if (promoCode) {
       const promo = await PromoCode.findOne({
         code: promoCode.toUpperCase(),
         active: true
-      });
+      }).session(session);
 
-      if (promo && (!promo.expiryDate || promo.expiryDate > new Date())) {
-        if (promo.discountType === 'percentage') {
-          discount = Math.round((subtotal * promo.discountValue) / 100);
-        } else {
-          discount = promo.discountValue;
-        }
+      if (!promo) {
+        await session.abortTransaction();
+        return res.status(400).json({
+          success: false,
+          message: 'Invalid promo code'
+        });
       }
+
+      // Check expiry
+      if (promo.expiryDate && promo.expiryDate < new Date()) {
+        await session.abortTransaction();
+        return res.status(400).json({
+          success: false,
+          message: 'Promo code has expired'
+        });
+      }
+
+      // Calculate discount
+      if (promo.discountType === 'percentage') {
+        discount = Math.round((subtotal * promo.discountValue) / 100);
+      } else {
+        discount = promo.discountValue;
+      }
+
+      // Ensure discount doesn't exceed subtotal
+      discount = Math.min(discount, subtotal);
+      appliedPromoCode = promo.code;
     }
 
     // Calculate final total
@@ -121,17 +168,21 @@ export const createBooking = async (req: Request, res: Response) => {
       subtotal,
       taxes,
       totalPrice,
-      promoCode: promoCode?.toUpperCase(),
+      promoCode: appliedPromoCode || undefined,
       discount,
       bookingReference,
       status: 'confirmed'
     });
 
-    await booking.save();
+    await booking.save({ session });
 
     // Update slot availability
     experience.slots[slotIndex].availableSpots -= numberOfPeople;
     await experience.save();
+
+    //commit transaction
+    await session.commitTransaction();
+    session.endSession();
 
     res.status(201).json({
       success: true,
@@ -155,16 +206,29 @@ export const createBooking = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: 'Error creating booking',
-      error
+      error: process.env.NODE_ENV === 'development' ? error : undefined
     });
   }
 };
 
 export const getBookingByReference = async (req: Request, res: Response) => {
   try {
+    // const booking = await Booking.findOne({
+    //   bookingReference: req.params.reference
+    // });
+
+    const { reference } = req.params;
+
+    if (!reference) {
+      return res.status(404).json({
+        success: false,
+        message: 'Booking reference is required'
+      });
+    }
+
     const booking = await Booking.findOne({
-      bookingReference: req.params.reference
-    });
+      bookingReference: reference
+    }).populate('experienceId', 'title location image');
 
     if (!booking) {
       return res.status(404).json({
@@ -182,7 +246,7 @@ export const getBookingByReference = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: 'Error fetching booking',
-      error
+      error: process.env.NODE_ENV === 'development' ? error : undefined
     });
   }
 };

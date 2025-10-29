@@ -12,6 +12,13 @@ const getFutureDate = (daysFromNow: number) => {
   return date;
 };
 
+// Helper to get future date for expiry (30 days from now)
+const getExpiryDate = (daysFromNow: number) => {
+  const date = new Date();
+  date.setDate(date.getDate() + daysFromNow);
+  return date;
+};
+
 const experiences = [
   {
     title: 'Nandi Hills Sunrise',
@@ -312,49 +319,87 @@ const promoCodes = [
     code: 'SAVE10',
     discountType: 'percentage',
     discountValue: 10,
-    active: true
+    active: true,
+    expiryDate: getExpiryDate(30),
+    minPurchaseAmount: 500,
+    maxDiscount: 500,
+    usageLimit: 100,
+    description: 'Get 10% off on all bookings (max ₹500)'
   },
   {
     code: 'FLAT100',
     discountType: 'flat',
     discountValue: 100,
-    active: true
+    active: true,
+    expiryDate: getExpiryDate(30),
+    minPurchaseAmount: 1000,
+    usageLimit: 200,
+    description: 'Flat ₹100 off on bookings above ₹1000'
   },
   {
     code: 'WELCOME20',
     discountType: 'percentage',
     discountValue: 20,
-    active: true
+    active: true,
+    expiryDate: getExpiryDate(30),
+    minPurchaseAmount: 1500,
+    maxDiscount: 1000,
+    usageLimit: 50,
+    description: 'Welcome offer: 20% off on bookings above ₹1500 (max ₹1000)'
   },
   {
     code: 'FLAT500',
     discountType: 'flat',
     discountValue: 500,
-    active: true
+    active: true,
+    expiryDate: getExpiryDate(15),
+    minPurchaseAmount: 3000,
+    usageLimit: 30,
+    description: 'Mega deal: Flat ₹500 off on bookings above ₹3000'
   }
 ];
 
 const seedDatabase = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI as string);
-    console.log('Connected to MongoDB');
+    // Connect to MongoDB
+    const mongoUri = process.env.MONGODB_URI;
+    if (!mongoUri) {
+      throw new Error('MONGODB_URI is not defined in environment variables');
+    }
+
+    await mongoose.connect(mongoUri);
+    console.log('✅ Connected to MongoDB');
 
     // Clear existing data
     await Experience.deleteMany({});
     await PromoCode.deleteMany({});
-    console.log('Cleared existing data');
+    console.log('🗑️  Cleared existing data');
 
     // Insert new data
-    await Experience.insertMany(experiences);
-    await PromoCode.insertMany(promoCodes);
+    const insertedExperiences = await Experience.insertMany(experiences);
+    const insertedPromoCodes = await PromoCode.insertMany(promoCodes);
 
-    console.log('✅ Database seeded successfully!');
-    console.log(`   - Added ${experiences.length} experiences`);
-    console.log(`   - Added ${promoCodes.length} promo codes`);
+    console.log('\n✅ Database seeded successfully!');
+    console.log(`   📍 Added ${insertedExperiences.length} experiences`);
+    console.log(`   🎟️  Added ${insertedPromoCodes.length} promo codes`);
 
+    console.log('\n📋 Available Promo Codes:');
+    insertedPromoCodes.forEach((promo) => {
+      console.log(`   - ${promo.code}: ${promo.description}`);
+    });
+
+    console.log('\n🎯 Next steps:');
+    console.log('   1. Start your server: npm run dev');
+    console.log('   2. Test API: GET http://localhost:5000/api/experiences');
+    console.log(
+      '   3. Validate promo: POST http://localhost:5000/api/promo/validate\n'
+    );
+
+    await mongoose.connection.close();
     process.exit(0);
   } catch (error) {
-    console.error('Error seeding database:', error);
+    console.error('❌ Error seeding database:', error);
+    await mongoose.connection.close();
     process.exit(1);
   }
 };
