@@ -4,17 +4,19 @@ import Experience from '../models/Experience';
 
 export const getAllExperiences = async (req: Request, res: Response) => {
   try {
-    const experiences = await Experience.find().select('title description location image rating reviewCount slots').lean();
+    const experiences = await Experience.find()
+      .select('title description location image rating reviewCount slots')
+      .lean();
 
     //min price for each experience
     const experiencesWithPrice = experiences.map((exp) => {
       const minPrice = Math.min(...exp.slots.map((slot: any) => slot.price));
       return {
         ...exp,
-        startingPrince: minPrice
+        startingPrice: minPrice
       };
-      res.json({ experiencesWithPrice });
     });
+    res.json({ experiencesWithPrice });
   } catch (error) {
     console.error('Error fetching experiences:', error);
     res.status(500).json({ message: 'Error fetching experiences', error });
@@ -22,7 +24,6 @@ export const getAllExperiences = async (req: Request, res: Response) => {
 };
 
 //get experience by id
-
 export const getExperienceById = async (req: Request, res: Response) => {
   try {
     const experience = await Experience.findById(req.params.id);
