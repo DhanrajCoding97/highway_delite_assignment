@@ -2,8 +2,7 @@ import mongoose, { Document, Schema } from 'mongoose';
 
 export interface ISlot {
   date: Date;
-  startTime: string;
-  endTime: string;
+  slotTime: string;
   availableSpots: number;
   totalSpots: number;
   price: number;
@@ -29,8 +28,7 @@ export interface IExperience extends Document {
 
 const SlotSchema = new Schema<ISlot>({
   date: { type: Date, required: true },
-  startTime: { type: String, required: true },
-  endTime: { type: String, required: true },
+  slotTime: { type: String, required: true },
   availableSpots: { type: Number, required: true },
   totalSpots: { type: Number, required: true },
   price: { type: Number, required: true }

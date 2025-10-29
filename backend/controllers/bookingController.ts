@@ -68,7 +68,7 @@ export const createBooking = async (req: Request, res: Response) => {
       const reqDate = new Date(slotDate);
       return (
         sDate.toISOString().split('T')[0] ===
-          reqDate.toISOString().split('T')[0] && s.startTime === slotTime
+          reqDate.toISOString().split('T')[0] && s.slotTime
       );
     });
 

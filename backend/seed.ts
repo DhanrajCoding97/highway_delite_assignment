@@ -48,40 +48,35 @@ const experiences = [
     slots: [
       {
         date: getFutureDate(1),
-        startTime: '04:00 AM',
-        endTime: '07:00 AM',
+        slotTime: '04:00 AM',
         availableSpots: 8,
         totalSpots: 8,
         price: 899
       },
       {
         date: getFutureDate(2),
-        startTime: '04:00 AM',
-        endTime: '07:00 AM',
+        slotTime: '07:00 AM',
         availableSpots: 5,
         totalSpots: 8,
         price: 899
       },
       {
         date: getFutureDate(3),
-        startTime: '04:00 AM',
-        endTime: '07:00 AM',
+        slotTime: '10:00 AM',
         availableSpots: 8,
         totalSpots: 8,
         price: 899
       },
       {
         date: getFutureDate(4),
-        startTime: '04:00 AM',
-        endTime: '07:00 AM',
+        slotTime: '01:00 PM',
         availableSpots: 0,
         totalSpots: 8,
         price: 899
       },
       {
         date: getFutureDate(5),
-        startTime: '04:00 AM',
-        endTime: '07:00 AM',
+        slotTime: '04:00 PM',
         availableSpots: 3,
         totalSpots: 8,
         price: 899
@@ -116,40 +111,35 @@ const experiences = [
     slots: [
       {
         date: getFutureDate(1),
-        startTime: '07:00 AM',
-        endTime: '09:00 AM',
+        slotTime: '07:00 AM - 09:00 AM',
         availableSpots: 6,
         totalSpots: 10,
         price: 999
       },
       {
         date: getFutureDate(1),
-        startTime: '11:00 AM',
-        endTime: '01:00 PM',
+        slotTime: '11:00 AM - 01:00 PM',
         availableSpots: 4,
         totalSpots: 10,
         price: 999
       },
       {
         date: getFutureDate(1),
-        startTime: '03:00 PM',
-        endTime: '05:00 PM',
+        slotTime: '03:00 PM - 05:00 PM',
         availableSpots: 0,
         totalSpots: 10,
         price: 999
       },
       {
         date: getFutureDate(2),
-        startTime: '07:00 AM',
-        endTime: '09:00 AM',
+        slotTime: '07:00 AM - 09:00 AM',
         availableSpots: 10,
         totalSpots: 10,
         price: 999
       },
       {
         date: getFutureDate(2),
-        startTime: '11:00 AM',
-        endTime: '01:00 PM',
+        slotTime: '11:00 AM - 01:00 PM',
         availableSpots: 8,
         totalSpots: 10,
         price: 999
@@ -184,24 +174,21 @@ const experiences = [
     slots: [
       {
         date: getFutureDate(1),
-        startTime: '08:00 AM',
-        endTime: '12:00 PM',
+        slotTime: '08:00 AM - 12:00 PM',
         availableSpots: 4,
         totalSpots: 6,
         price: 3499
       },
       {
         date: getFutureDate(2),
-        startTime: '08:00 AM',
-        endTime: '12:00 PM',
+        slotTime: '08:00 AM - 12:00 PM',
         availableSpots: 2,
         totalSpots: 6,
         price: 3499
       },
       {
         date: getFutureDate(3),
-        startTime: '08:00 AM',
-        endTime: '12:00 PM',
+        slotTime: '08:00 AM - 12:00 PM',
         availableSpots: 6,
         totalSpots: 6,
         price: 3499
@@ -236,24 +223,21 @@ const experiences = [
     slots: [
       {
         date: getFutureDate(1),
-        startTime: '09:00 AM',
-        endTime: '10:00 AM',
+        slotTime: '09:00 AM - 10:00 AM',
         availableSpots: 3,
         totalSpots: 5,
         price: 2500
       },
       {
         date: getFutureDate(1),
-        startTime: '11:00 AM',
-        endTime: '12:00 PM',
+        slotTime: '11:00 AM - 12:00 PM',
         availableSpots: 5,
         totalSpots: 5,
         price: 2500
       },
       {
         date: getFutureDate(2),
-        startTime: '09:00 AM',
-        endTime: '10:00 AM',
+        slotTime: '09:00 AM - 10:00 AM',
         availableSpots: 1,
         totalSpots: 5,
         price: 2500
@@ -288,24 +272,21 @@ const experiences = [
     slots: [
       {
         date: getFutureDate(1),
-        startTime: '08:00 AM',
-        endTime: '11:30 AM',
+        slotTime: '08:00 AM - 11:30 AM',
         availableSpots: 8,
         totalSpots: 12,
         price: 699
       },
       {
         date: getFutureDate(1),
-        startTime: '04:00 PM',
-        endTime: '07:30 PM',
+        slotTime: '04:00 PM - 07:30 PM',
         availableSpots: 10,
         totalSpots: 12,
         price: 699
       },
       {
         date: getFutureDate(2),
-        startTime: '08:00 AM',
-        endTime: '11:30 AM',
+        slotTime: '08:00 AM - 11:30 AM',
         availableSpots: 6,
         totalSpots: 12,
         price: 699
@@ -361,7 +342,6 @@ const promoCodes = [
 
 const seedDatabase = async () => {
   try {
-    // Connect to MongoDB
     const mongoUri = process.env.MONGODB_URI;
     if (!mongoUri) {
       throw new Error('MONGODB_URI is not defined in environment variables');
@@ -370,12 +350,10 @@ const seedDatabase = async () => {
     await mongoose.connect(mongoUri);
     console.log('✅ Connected to MongoDB');
 
-    // Clear existing data
     await Experience.deleteMany({});
     await PromoCode.deleteMany({});
     console.log('🗑️  Cleared existing data');
 
-    // Insert new data
     const insertedExperiences = await Experience.insertMany(experiences);
     const insertedPromoCodes = await PromoCode.insertMany(promoCodes);
 
