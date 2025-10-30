@@ -1,39 +1,60 @@
 import { Button } from './ui/button';
+import { useNavigate } from 'react-router-dom';
+import { IExperience } from '../types';
 
-const ExperienceCard = () => {
+interface ExperienceCardProps {
+  experience: IExperience;
+}
+
+const ExperienceCard = ({ experience }: ExperienceCardProps) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="bg-blue-500 w-full max-w-[280px] flex flex-col gap-3 rounded-tl-2xl rounded-tr-2xl">
-      <figure className="h-[170px] w-[280px]">
-        <img src="/" alt="kayaking img" />
+    <div className="flex flex-col bg-[#F9F9F9] shadow-sm rounded-2xl overflow-hidden h-full transition-transform hover:-translate-y-1 hover:shadow-md duration-200">
+      {/* Image */}
+      <figure className="relative h-[170px]">
+        <img
+          src={experience.image}
+          alt={experience.title}
+          className="w-full h-full object-cover"
+        />
       </figure>
-      <div className="bg-[#F0F0F0]">
-        <div className="px-4 pt-3.5 ">
-          <div className="flex items-center justify-between ">
-            <h2 className="font-medium text-base text-primary-text ">
-              Kayaking
-            </h2>
-            <span className="px-2 py-1 bg-[#D6D6D6] text-xs font-normal text-secondary-text rounded">
-              Udupi
+
+      {/* Card Content */}
+      <div className="flex flex-col grow px-4 py-3 bg-[#F0F0F0]">
+        {/* Title + Location */}
+        <div className="flex items-start justify-between gap-2 pb-2">
+          <h3 className="font-medium text-base text-primary-text">
+            {experience.title}
+          </h3>
+          <span className="px-2 py-1 bg-[#D6D6D6] text-[11px] font-medium text-[#161616] rounded whitespace-nowrap">
+            {experience.location}
+          </span>
+        </div>
+
+        {/* Description (truncate to 2 lines) */}
+        <p className="text-xs font-normal text-[#6C6C6C] grow ">
+          {experience.description}
+        </p>
+
+        {/* Price + Button */}
+        <div className="mt-5 flex items-center justify-between">
+          <div>
+            <span className="text-primary-text font-normal text-xs">From </span>
+            <span className="text-xl font-medium leading-6">
+              ₹{experience.startingPrice || experience.slots[0]?.price}
             </span>
           </div>
-          <p className="pt-3 text-xs font-normal text-secondary-text">
-            Curated small-group experience. Certified guide. Safety first with
-            gear included.{' '}
-          </p>
-        </div>
-        <div className="pt-5 pb-3 px-4 flex items-center justify-between">
-          <span className="text-primary-text font-normal text-xs">
-            From{' '}
-            <strong className="font-medium text-xl leading-24]">
-              &#8377;999
-            </strong>
-          </span>
-          <Button variant="default">View Details</Button>
+
+          <Button
+            variant="default"
+            className="px-2 py-1.5 rounded"
+            onClick={() => navigate(`/experience/${experience._id}`)}>
+            View Details
+          </Button>
         </div>
       </div>
     </div>
-    // <div className="grid grid-cols-4 gap-6">
-    // </div>
   );
 };
 
