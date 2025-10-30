@@ -8,6 +8,8 @@
 @theme inline {
   --text-primary-text: var(--text-primary);
   --text-secondary-text: var(--text-secondary);
+  --color-btn-primary: var(--btn-primary);
+  --color-primary-bg: var(--primary-bg)
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -49,6 +51,7 @@
   --text-primary: #161616;
   --text-secondary: #6c6c6c;
   --btn-primary: #ffd643;
+  --primary-bg: #f9f9f9;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);

@@ -25,7 +25,7 @@ const ExperienceCard = () => {
           <span className="text-primary-text font-normal text-xs">
             From{' '}
             <strong className="font-medium text-xl leading-24]">
-              &#8377; 999
+              &#8377;999
             </strong>
           </span>
           <Button variant="default">View Details</Button>

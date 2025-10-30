@@ -1,12 +1,14 @@
 import './App.css';
+import Navbar from './components/Navbar';
 import ExperienceCard from './components/ExperienceCard';
-
+import SearchInput from './components/searchInput';
 function App() {
   return (
-    <>
-      <h1 className="text-blue-400">yo</h1>
+    <main>
+      <Navbar />
       <ExperienceCard />
-    </>
+      <SearchInput />
+    </main>
   );
 }
 
