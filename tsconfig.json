@@ -9,7 +9,11 @@
     "strict": true,
     "skipLibCheck": true,
     "moduleResolution": "node16",
-    "outDir": "build"
+    "outDir": "build",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "exclude": ["node/modules/"],
   "include": ["src/**/*.ts"],
