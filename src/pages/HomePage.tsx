@@ -29,6 +29,11 @@ const HomePage = () => {
     }
   };
 
+  //trigger filteredExperiences when searchQuery changes
+  useEffect(() => {
+    handleSearch();
+  }, [searchQuery]);
+
   const handleSearch = () => {
     if (!searchQuery.trim()) {
       setFilteredExperiences(experiences);
@@ -36,9 +41,17 @@ const HomePage = () => {
     }
 
     const filtered = experiences.filter((exp) => {
-      exp.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        exp.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        exp.category.toLowerCase().includes(searchQuery.toLowerCase());
+      const title = exp.title?.toLowerCase() || '';
+      const location = exp.location?.toLowerCase() || '';
+      const category = exp.category?.toLowerCase() || '';
+      const query = searchQuery.toLowerCase();
+
+      // ✅ Make sure to return a boolean
+      return (
+        title.includes(query) ||
+        location.includes(query) ||
+        category.includes(query)
+      );
     });
 
     setFilteredExperiences(filtered);
