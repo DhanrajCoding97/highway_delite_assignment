@@ -111,35 +111,35 @@ const experiences = [
     slots: [
       {
         date: getFutureDate(1),
-        slotTime: '07:00 AM - 09:00 AM',
+        slotTime: '07:00 AM',
         availableSpots: 6,
         totalSpots: 10,
         price: 999
       },
       {
         date: getFutureDate(1),
-        slotTime: '11:00 AM - 01:00 PM',
+        slotTime: '11:00 AM',
         availableSpots: 4,
         totalSpots: 10,
         price: 999
       },
       {
         date: getFutureDate(1),
-        slotTime: '03:00 PM - 05:00 PM',
+        slotTime: '03:00 PM',
         availableSpots: 0,
         totalSpots: 10,
         price: 999
       },
       {
         date: getFutureDate(2),
-        slotTime: '07:00 AM - 09:00 AM',
+        slotTime: '07:00 AM ',
         availableSpots: 10,
         totalSpots: 10,
         price: 999
       },
       {
         date: getFutureDate(2),
-        slotTime: '11:00 AM - 01:00 PM',
+        slotTime: '11:00 AM',
         availableSpots: 8,
         totalSpots: 10,
         price: 999
@@ -174,21 +174,21 @@ const experiences = [
     slots: [
       {
         date: getFutureDate(1),
-        slotTime: '08:00 AM - 12:00 PM',
+        slotTime: '08:00 AM',
         availableSpots: 4,
         totalSpots: 6,
         price: 3499
       },
       {
         date: getFutureDate(2),
-        slotTime: '08:00 AM - 12:00 PM',
+        slotTime: '08:00 AM',
         availableSpots: 2,
         totalSpots: 6,
         price: 3499
       },
       {
         date: getFutureDate(3),
-        slotTime: '08:00 AM - 12:00 PM',
+        slotTime: '08:00 AM',
         availableSpots: 6,
         totalSpots: 6,
         price: 3499
@@ -223,21 +223,21 @@ const experiences = [
     slots: [
       {
         date: getFutureDate(1),
-        slotTime: '09:00 AM - 10:00 AM',
+        slotTime: '09:00 AM',
         availableSpots: 3,
         totalSpots: 5,
         price: 2500
       },
       {
         date: getFutureDate(1),
-        slotTime: '11:00 AM - 12:00 PM',
+        slotTime: '11:00 AM',
         availableSpots: 5,
         totalSpots: 5,
         price: 2500
       },
       {
         date: getFutureDate(2),
-        slotTime: '09:00 AM - 10:00 AM',
+        slotTime: '09:00 AM',
         availableSpots: 1,
         totalSpots: 5,
         price: 2500
@@ -272,21 +272,21 @@ const experiences = [
     slots: [
       {
         date: getFutureDate(1),
-        slotTime: '08:00 AM - 11:30 AM',
+        slotTime: '08:00 AM',
         availableSpots: 8,
         totalSpots: 12,
         price: 699
       },
       {
         date: getFutureDate(1),
-        slotTime: '04:00 PM - 07:30 PM',
+        slotTime: '04:00 PM',
         availableSpots: 10,
         totalSpots: 12,
         price: 699
       },
       {
         date: getFutureDate(2),
-        slotTime: '08:00 AM - 11:30 AM',
+        slotTime: '08:00 AM',
         availableSpots: 6,
         totalSpots: 12,
         price: 699
