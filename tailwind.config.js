@@ -5,6 +5,13 @@ export default {
     './src/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}'
   ],
-  theme: { extend: {} },
+  theme: {
+    extend: {
+      screens: {
+        xlmid: { max: '1300px' } // custom breakpoint
+      }
+    }
+  },
+
   plugins: []
 };

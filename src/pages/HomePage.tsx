@@ -97,13 +97,13 @@ const HomePage = () => {
         onChange={setSearchQuery}
         onSearch={handleSearch}
       />
-      <main className="pt-12 px-[124px]">
+      <main className="px-4 sm:px-6 lg:px-8 2xl:px-[124px] py-8">
         {filteredExperiences.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-gray-600">No experiences found</p>
           </div>
         ) : (
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid-responsive">
             {filteredExperiences.map((exp) => (
               <ExperienceCard key={exp._id} experience={exp} />
             ))}

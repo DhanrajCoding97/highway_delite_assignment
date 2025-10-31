@@ -27,7 +27,7 @@ const ExperienceCard = ({ experience }: ExperienceCardProps) => {
           <h3 className="font-medium text-base text-primary-text">
             {experience.title}
           </h3>
-          <span className="px-2 py-1 bg-[#D6D6D6] text-[11px] font-medium text-[#161616] rounded whitespace-nowrap">
+          <span className="px-2 py-1 bg-[#D6D6D6] text-[11px] font-medium text-primary-text rounded whitespace-nowrap">
             {experience.location}
           </span>
         </div>

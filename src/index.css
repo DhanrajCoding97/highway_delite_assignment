@@ -6,7 +6,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --text-primary-text: var(--text-primary);
+  --color-primary-text: var(--text-primary);
   --text-secondary-text: var(--text-secondary);
   --color-btn-primary: var(--btn-primary);
   --color-primary-bg: var(--primary-bg)
@@ -128,3 +128,29 @@
     @apply bg-background text-foreground;
   }
 }
+
+.grid-responsive {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+@media  screen and (max-width:1300px ) {
+  .grid-responsive {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media  screen and (max-width:858px ) {
+  .grid-responsive {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media  screen and (max-width:562px ) {
+  .grid-responsive {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+

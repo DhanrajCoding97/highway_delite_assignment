@@ -32,7 +32,6 @@ export interface IBookingRequest {
   slotTime: string;
   customerName: string;
   customerEmail: string;
-  customerPhone?: string;
   numberOfPeople: number;
   promoCode?: string;
 }

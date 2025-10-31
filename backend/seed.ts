@@ -5,14 +5,14 @@ import PromoCode from './models/PromoCode';
 
 dotenv.config();
 
-// Helper function to get future dates
+// Helper: get future date
 const getFutureDate = (daysFromNow: number) => {
   const date = new Date();
   date.setDate(date.getDate() + daysFromNow);
   return date;
 };
 
-// Helper to get future date for expiry (30 days from now)
+// Helper: expiry (30 days from now)
 const getExpiryDate = (daysFromNow: number) => {
   const date = new Date();
   date.setDate(date.getDate() + daysFromNow);
@@ -21,62 +21,121 @@ const getExpiryDate = (daysFromNow: number) => {
 
 const experiences = [
   {
+    title: 'Kayaking',
+    description:
+      'Curated small-group experience. Certified guide. Safety first with gear included.',
+    location: 'Udupi, Karnataka',
+    duration: '2 hours',
+    category: 'Water Sports',
+    image:
+      'https://images.unsplash.com/photo-1562388831-a7a060b9c1fe?auto=format&fit=crop&q=80&w=1600',
+    rating: 4.7,
+    reviewCount: 230,
+    highlights: [
+      'Kayak through mangroves',
+      'Certified instructor',
+      'Life jackets & helmets provided',
+      'Small group activity'
+    ],
+    included: ['Kayak + Paddle', 'Safety Gear', 'Instructor Guidance'],
+    about:
+      'Paddle through Udupi’s peaceful backwaters surrounded by lush mangroves and tranquil beauty.',
+    slots: [
+      {
+        date: getFutureDate(1),
+        slotTime: '07:00 AM',
+        availableSpots: 6,
+        totalSpots: 8,
+        price: 999
+      },
+      {
+        date: getFutureDate(1),
+        slotTime: '11:00 AM',
+        availableSpots: 4,
+        totalSpots: 8,
+        price: 999
+      },
+      {
+        date: getFutureDate(2),
+        slotTime: '07:00 AM',
+        availableSpots: 8,
+        totalSpots: 8,
+        price: 999
+      },
+      {
+        date: getFutureDate(2),
+        slotTime: '11:00 AM',
+        availableSpots: 2,
+        totalSpots: 8,
+        price: 999
+      }
+    ]
+  },
+  {
     title: 'Nandi Hills Sunrise',
     description:
       'Curated small-group experience. Certified guide. Safety first with gear included.',
     location: 'Bangalore',
     duration: '3 hours',
     category: 'Adventure',
-    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800',
+    image:
+      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&q=80&w=1600',
     rating: 4.8,
     reviewCount: 156,
     highlights: [
-      'Watch mesmerizing sunrise from 1,478m altitude',
-      'Small group experience (max 8 people)',
+      'Watch sunrise from 1,478m altitude',
       'Certified mountain guide',
-      'Safety equipment included'
+      'Small group tour'
     ],
-    included: [
-      'Hotel pickup and drop',
-      'Breakfast at hilltop',
-      'Entry tickets',
-      'Professional guide',
-      'Safety gear'
-    ],
+    included: ['Pickup + Drop', 'Breakfast', 'Safety Gear'],
     about:
-      "Experience the breathtaking sunrise from Nandi Hills, one of Bangalore's most scenic spots. Perfect for nature lovers and photography enthusiasts.",
+      'Catch the breathtaking sunrise from Nandi Hills — a serene experience for nature lovers.',
     slots: [
       {
         date: getFutureDate(1),
-        slotTime: '04:00 AM',
-        availableSpots: 8,
+        slotTime: '07:00 AM',
+        availableSpots: 4,
         totalSpots: 8,
         price: 899
       },
       {
-        date: getFutureDate(2),
-        slotTime: '07:00 AM',
+        date: getFutureDate(1),
+        slotTime: '09:00 AM',
+        availableSpots: 2,
+        totalSpots: 8,
+        price: 899
+      },
+      {
+        date: getFutureDate(1),
+        slotTime: '11:00 AM',
         availableSpots: 5,
         totalSpots: 8,
         price: 899
       },
       {
-        date: getFutureDate(3),
-        slotTime: '10:00 AM',
-        availableSpots: 8,
-        totalSpots: 8,
-        price: 899
-      },
-      {
-        date: getFutureDate(4),
+        date: getFutureDate(1),
         slotTime: '01:00 PM',
         availableSpots: 0,
         totalSpots: 8,
         price: 899
       },
       {
-        date: getFutureDate(5),
-        slotTime: '04:00 PM',
+        date: getFutureDate(2),
+        slotTime: '07:00 AM',
+        availableSpots: 8,
+        totalSpots: 8,
+        price: 899
+      },
+      {
+        date: getFutureDate(2),
+        slotTime: '09:00 AM',
+        availableSpots: 6,
+        totalSpots: 8,
+        price: 899
+      },
+      {
+        date: getFutureDate(2),
+        slotTime: '11:00 AM',
         availableSpots: 3,
         totalSpots: 8,
         price: 899
@@ -84,212 +143,186 @@ const experiences = [
     ]
   },
   {
-    title: 'Kayaking',
+    title: 'Coffee Trail',
     description:
-      'Curated small-group experience. Certified guide. Safety first with gear included. Helmet and Life Jackets along with an expert will accompany in kayaking.',
-    location: 'Goa',
-    duration: '2 hours',
-    category: 'Water Sports',
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800',
-    rating: 4.6,
-    reviewCount: 203,
+      'Curated small-group experience. Certified guide. Safety first with gear included.',
+    location: 'Coorg',
+    duration: '3 hours',
+    category: 'Nature',
+    image:
+      'https://plus.unsplash.com/premium_photo-1677347335105-1bd16607a25e?auto=format&fit=crop&q=80&w=1600',
+    rating: 4.9,
+    reviewCount: 184,
     highlights: [
-      'Paddle through scenic routes',
-      'Certified guide accompaniment',
-      'All safety equipment provided',
-      'Small group experience'
+      'Walk through coffee plantations',
+      'Learn brewing process',
+      'Tasting session included'
     ],
-    included: [
-      'Kayak and paddle',
-      'Life jacket and helmet',
-      'Professional instructor',
-      'Safety briefing',
-      'Water bottles'
-    ],
+    included: ['Local guide', 'Snacks', 'Coffee tasting'],
     about:
-      'Paddle Indian waters, explore hidden paths, and safety briefing. Minimum age 12.',
+      'A peaceful trail through lush Coorg plantations, learning about the art of coffee making.',
+    slots: [
+      {
+        date: getFutureDate(1),
+        slotTime: '07:00 AM',
+        availableSpots: 5,
+        totalSpots: 8,
+        price: 1299
+      },
+      {
+        date: getFutureDate(1),
+        slotTime: '09:00 AM',
+        availableSpots: 2,
+        totalSpots: 8,
+        price: 1299
+      },
+      {
+        date: getFutureDate(1),
+        slotTime: '11:00 AM',
+        availableSpots: 0,
+        totalSpots: 8,
+        price: 1299
+      },
+      {
+        date: getFutureDate(2),
+        slotTime: '07:00 AM',
+        availableSpots: 8,
+        totalSpots: 8,
+        price: 1299
+      },
+      {
+        date: getFutureDate(2),
+        slotTime: '09:00 AM',
+        availableSpots: 4,
+        totalSpots: 8,
+        price: 1299
+      },
+      {
+        date: getFutureDate(3),
+        slotTime: '07:00 AM',
+        availableSpots: 6,
+        totalSpots: 8,
+        price: 1299
+      }
+    ]
+  },
+  {
+    title: 'Boat Cruise',
+    description:
+      'Curated small-group experience. Certified guide. Safety first with gear included.',
+    location: 'Sundarban',
+    duration: '4 hours',
+    category: 'Leisure',
+    image:
+      'https://images.unsplash.com/photo-1638123657021-f9aca72f8caf?auto=format&fit=crop&q=80&w=1600',
+    rating: 4.6,
+    reviewCount: 120,
+    highlights: [
+      'Cruise on scenic rivers',
+      'Snacks & refreshments',
+      'Safety assured'
+    ],
+    included: ['Life jackets', 'Refreshments', 'Guide commentary'],
+    about:
+      'A relaxing river cruise experience in the Sundarbans, ideal for family and groups.',
     slots: [
       {
         date: getFutureDate(1),
         slotTime: '07:00 AM',
         availableSpots: 6,
-        totalSpots: 10,
+        totalSpots: 8,
         price: 999
       },
       {
         date: getFutureDate(1),
-        slotTime: '11:00 AM',
+        slotTime: '09:00 AM',
         availableSpots: 4,
-        totalSpots: 10,
+        totalSpots: 8,
         price: 999
       },
       {
         date: getFutureDate(1),
-        slotTime: '03:00 PM',
+        slotTime: '01:00 PM',
         availableSpots: 0,
-        totalSpots: 10,
+        totalSpots: 8,
         price: 999
       },
       {
         date: getFutureDate(2),
-        slotTime: '07:00 AM ',
-        availableSpots: 10,
-        totalSpots: 10,
-        price: 999
-      },
-      {
-        date: getFutureDate(2),
-        slotTime: '11:00 AM',
+        slotTime: '07:00 AM',
         availableSpots: 8,
-        totalSpots: 10,
+        totalSpots: 8,
+        price: 999
+      },
+      {
+        date: getFutureDate(2),
+        slotTime: '01:00 PM',
+        availableSpots: 2,
+        totalSpots: 8,
         price: 999
       }
     ]
   },
   {
-    title: 'Scuba Diving in Andaman',
+    title: 'Bunjee Jumping',
     description:
-      'Dive into crystal clear waters. PADI certified instructors. Complete equipment included.',
-    location: 'Port Blair',
-    duration: '4 hours',
-    category: 'Water Sports',
-    image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800',
-    rating: 4.9,
-    reviewCount: 289,
-    highlights: [
-      'Explore vibrant coral reefs',
-      'PADI certified instructors',
-      'Underwater photography included',
-      'Beginner friendly'
-    ],
-    included: [
-      'Complete diving gear',
-      'Underwater camera shots',
-      'Training session',
-      'Refreshments',
-      'Certificate of completion'
-    ],
-    about:
-      'Discover the underwater paradise of Andaman. Suitable for beginners with proper training provided.',
-    slots: [
-      {
-        date: getFutureDate(1),
-        slotTime: '08:00 AM',
-        availableSpots: 4,
-        totalSpots: 6,
-        price: 3499
-      },
-      {
-        date: getFutureDate(2),
-        slotTime: '08:00 AM',
-        availableSpots: 2,
-        totalSpots: 6,
-        price: 3499
-      },
-      {
-        date: getFutureDate(3),
-        slotTime: '08:00 AM',
-        availableSpots: 6,
-        totalSpots: 6,
-        price: 3499
-      }
-    ]
-  },
-  {
-    title: 'Paragliding in Bir Billing',
-    description:
-      'Fly like a bird over stunning Himalayan valleys. Tandem flight with experienced pilot.',
-    location: 'Bir, Himachal Pradesh',
-    duration: '30 minutes flight',
+      'Curated small-group experience. Certified guide. Safety first with gear included.',
+    location: 'Manali',
+    duration: '1 hour',
     category: 'Adventure',
-    image: 'https://images.unsplash.com/photo-1534368420009-621bfab424a8?w=800',
-    rating: 4.7,
-    reviewCount: 178,
+    image:
+      'https://plus.unsplash.com/premium_photo-1663013514560-a30fbd137865?auto=format&fit=crop&q=80&w=1600',
+    rating: 4.8,
+    reviewCount: 211,
     highlights: [
-      'Tandem flight with certified pilot',
-      'Breathtaking valley views',
-      'HD video recording included',
-      "World's second-best paragliding site"
+      'Jump from 100ft platform',
+      'Professional safety team',
+      'Thrill guaranteed'
     ],
-    included: [
-      'Tandem paragliding flight',
-      'Safety gear',
-      'HD video of your flight',
-      'Photos',
-      'Insurance'
-    ],
-    about:
-      "Experience the thrill of paragliding at one of the world's best paragliding destinations.",
+    included: ['Safety harness', 'Certified instructor', 'Jump video'],
+    about: 'An adrenaline-filled experience in the mountains of Manali.',
     slots: [
       {
         date: getFutureDate(1),
         slotTime: '09:00 AM',
         availableSpots: 3,
-        totalSpots: 5,
-        price: 2500
+        totalSpots: 8,
+        price: 999
       },
       {
         date: getFutureDate(1),
         slotTime: '11:00 AM',
-        availableSpots: 5,
-        totalSpots: 5,
-        price: 2500
+        availableSpots: 2,
+        totalSpots: 8,
+        price: 999
+      },
+      {
+        date: getFutureDate(1),
+        slotTime: '01:00 PM',
+        availableSpots: 0,
+        totalSpots: 8,
+        price: 999
       },
       {
         date: getFutureDate(2),
         slotTime: '09:00 AM',
-        availableSpots: 1,
-        totalSpots: 5,
-        price: 2500
-      }
-    ]
-  },
-  {
-    title: 'Heritage Walk in Old Delhi',
-    description:
-      'Walk through history. Expert local guides. Taste authentic street food.',
-    location: 'Delhi',
-    duration: '3.5 hours',
-    category: 'Cultural',
-    image: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=800',
-    rating: 4.5,
-    reviewCount: 312,
-    highlights: [
-      'Visit Chandni Chowk and Jama Masjid',
-      'Street food tasting included',
-      'Stories from Mughal era',
-      'Small group (max 12 people)'
-    ],
-    included: [
-      'Expert local guide',
-      'Food tasting (5 items)',
-      'Entry to monuments',
-      'Bottled water',
-      'Historical stories and anecdotes'
-    ],
-    about:
-      'Immerse yourself in the rich history of Old Delhi with our heritage walk covering iconic monuments and delicious street food.',
-    slots: [
-      {
-        date: getFutureDate(1),
-        slotTime: '08:00 AM',
         availableSpots: 8,
-        totalSpots: 12,
-        price: 699
-      },
-      {
-        date: getFutureDate(1),
-        slotTime: '04:00 PM',
-        availableSpots: 10,
-        totalSpots: 12,
-        price: 699
+        totalSpots: 8,
+        price: 999
       },
       {
         date: getFutureDate(2),
-        slotTime: '08:00 AM',
-        availableSpots: 6,
-        totalSpots: 12,
-        price: 699
+        slotTime: '11:00 AM',
+        availableSpots: 5,
+        totalSpots: 8,
+        price: 999
+      },
+      {
+        date: getFutureDate(3),
+        slotTime: '09:00 AM',
+        availableSpots: 4,
+        totalSpots: 8,
+        price: 999
       }
     ]
   }
@@ -316,67 +349,31 @@ const promoCodes = [
     minPurchaseAmount: 1000,
     usageLimit: 200,
     description: 'Flat ₹100 off on bookings above ₹1000'
-  },
-  {
-    code: 'WELCOME20',
-    discountType: 'percentage',
-    discountValue: 20,
-    active: true,
-    expiryDate: getExpiryDate(30),
-    minPurchaseAmount: 1500,
-    maxDiscount: 1000,
-    usageLimit: 50,
-    description: 'Welcome offer: 20% off on bookings above ₹1500 (max ₹1000)'
-  },
-  {
-    code: 'FLAT500',
-    discountType: 'flat',
-    discountValue: 500,
-    active: true,
-    expiryDate: getExpiryDate(15),
-    minPurchaseAmount: 3000,
-    usageLimit: 30,
-    description: 'Mega deal: Flat ₹500 off on bookings above ₹3000'
   }
 ];
 
 const seedDatabase = async () => {
   try {
     const mongoUri = process.env.MONGODB_URI;
-    if (!mongoUri) {
-      throw new Error('MONGODB_URI is not defined in environment variables');
-    }
+    if (!mongoUri) throw new Error('MONGODB_URI not defined');
 
     await mongoose.connect(mongoUri);
     console.log('✅ Connected to MongoDB');
 
     await Experience.deleteMany({});
     await PromoCode.deleteMany({});
-    console.log('🗑️  Cleared existing data');
+    console.log('🗑️  Cleared old data');
 
     const insertedExperiences = await Experience.insertMany(experiences);
     const insertedPromoCodes = await PromoCode.insertMany(promoCodes);
 
-    console.log('\n✅ Database seeded successfully!');
-    console.log(`   📍 Added ${insertedExperiences.length} experiences`);
-    console.log(`   🎟️  Added ${insertedPromoCodes.length} promo codes`);
-
-    console.log('\n📋 Available Promo Codes:');
-    insertedPromoCodes.forEach((promo) => {
-      console.log(`   - ${promo.code}: ${promo.description}`);
-    });
-
-    console.log('\n🎯 Next steps:');
-    console.log('   1. Start your server: npm run dev');
-    console.log('   2. Test API: GET http://localhost:5000/api/experiences');
-    console.log(
-      '   3. Validate promo: POST http://localhost:5000/api/promo/validate\n'
-    );
+    console.log(`✅ Seeded ${insertedExperiences.length} experiences`);
+    console.log(`🎟️  Seeded ${insertedPromoCodes.length} promo codes`);
 
     await mongoose.connection.close();
     process.exit(0);
-  } catch (error) {
-    console.error('❌ Error seeding database:', error);
+  } catch (err) {
+    console.error('❌ Error seeding DB:', err);
     await mongoose.connection.close();
     process.exit(1);
   }

@@ -25,7 +25,7 @@ const ExperienceDetailsPriceCard = ({
   isConfirmDisabled = false
 }: ExperienceDetailsPriceCardProps) => {
   return (
-    <div className="p-6 w-full max-w-[387px] flex flex-col gap-6 rounded-3xl bg-[#EFEFEF]">
+    <div className="p-6 w-full flex flex-col gap-6 rounded-3xl bg-[#EFEFEF] shadow-sm">
       <div className="flex flex-col">
         <div className="flex flex-col gap-[17.5px] border-b border-[#C9C9C9]">
           {/* Starting price */}
@@ -90,8 +90,7 @@ const ExperienceDetailsPriceCard = ({
         <Button
           onClick={onConfirm}
           disabled={isConfirmDisabled}
-          // className="mt-6 cursor-pointer"
-          className="mt-6 cursor-pointer w-full bg-[#C9C9C9] hover:bg-[#B0B0B0] text-primary-text disabled:opacity-50 disabled:cursor-not-allowed"
+          className="mt-6 text-base font-medium cursor-pointer w-full bg-[#FFD643] hover:bg-[#FFD643]/80 text-primary-text disabled:opacity-50 disabled:cursor-not-allowed"
           variant="default">
           Confirm
         </Button>

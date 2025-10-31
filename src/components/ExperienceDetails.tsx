@@ -33,9 +33,7 @@ const ExperienceDetails = ({
         <img
           src={experience.image}
           alt={experience.title}
-          height={381}
-          width={765}
-          className="h-[381px] w-[765px] rounded-[12px]"
+          className="w-full h-full object-cover rounded-[12px]"
         />
       </figure>
       <div className="flex flex-col gap-4">
@@ -51,7 +49,7 @@ const ExperienceDetails = ({
           <h2 className="pb-3 text-lg font-medium leading-[22px] text-primary-text">
             Choose Date
           </h2>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-wrap">
             {availableDates.map((date) => {
               const { month, day } = formatDate(date);
               return (
@@ -59,9 +57,9 @@ const ExperienceDetails = ({
                   key={date}
                   onClick={() => onDateSelect(date)}
                   className={cn(
-                    'flex items-center px-4 py-2 gap-1 rounded border border-[#BDBDBD] text-[#838383] text-sm font-normal leading-[18px] min-w-[70px] transition-colors',
+                    'flex items-center px-4 py-2 gap-1 rounded border border-[#BDBDBD] text-[#838383] text-sm font-normal leading-[18px] min-w-[70px] transition-all duration-500 ease-in hover:bg-[#FFD643] hover:border-transparent hover:text-primary-text',
                     {
-                      'text-primary-text bg-[#FFD643] border-[#FFD643]':
+                      'text-primary-text bg-[#FFD643] border-transparent':
                         selectedDate === date
                     }
                   )}>
@@ -80,7 +78,7 @@ const ExperienceDetails = ({
           <h2 className="pb-3 text-lg font-medium leading-[22px] text-primary-text">
             Choose time
           </h2>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-wrap">
             {availableSlots.map((slot) => {
               const isSoldOut = slot.availableSpots === 0;
               const isSelected = selectedTime === slot.slotTime;
@@ -91,10 +89,12 @@ const ExperienceDetails = ({
                   onClick={() => !isSoldOut && onTimeSelect(slot.slotTime)}
                   disabled={isSoldOut}
                   className={cn(
-                    'flex items-center gap-1.5 px-3 py-2 border border-[#BDBDBD] bg-white text-[#838383] text-sm font-normal leading-[18px] rounded',
+                    'flex items-center gap-1.5 px-3 py-2 border border-[#BDBDBD] bg-white text-[#838383] text-sm font-normal leading-[18px] rounded hover:bg-[#FFD643] hover:text-primary-text hover:border-transparent transition-all duration-500 ease-in',
                     {
-                      'text-primary-text bg-[#FFD643] border-0': isSelected,
-                      'text-[#838383] bg-[#CCCCCC] border-0': isSoldOut
+                      'text-primary-text bg-[#FFD643] border-transparent':
+                        isSelected,
+                      'text-[#838383] bg-[#CCCCCC] border-transparent':
+                        isSoldOut
                     }
                   )}>
                   <span>{slot.slotTime}</span>
