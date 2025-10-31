@@ -1,6 +1,6 @@
 import React from 'react';
 // import { useNavigate } from 'react-router-dom';
-import SearchInput from './searchInput';
+import SearchInput from './SearchInput';
 
 interface NavbarProps {
   value: string;
